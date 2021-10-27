@@ -33,6 +33,7 @@ class _MyHomePageState extends State<MyHomePage> {
   late double _lampWidth;
   late bool _lampSizeStatus;
   late bool _lampTurn;
+  late bool _lampRed;
 
   @override
   void initState() {
@@ -44,6 +45,7 @@ class _MyHomePageState extends State<MyHomePage> {
     _lampWidth = 150;
     _lampSizeStatus = false;
     _lampTurn = true;
+    _lampRed = false;
   }
 
   @override
@@ -98,6 +100,19 @@ class _MyHomePageState extends State<MyHomePage> {
                           });
                         }),
                   ],
+                ),
+                Column(
+                  children: [
+                    const Text("Colour"),
+                    Switch(
+                        value: _lampRed,
+                        onChanged: (value) {
+                          setState(() {
+                            _lampRed = value;
+                            turnRed();
+                          });
+                        })
+                  ],
                 )
               ],
             ),
@@ -121,6 +136,24 @@ class _MyHomePageState extends State<MyHomePage> {
     if (_lampTurn == true) {
       _asset = "images/lamp_on.png";
     } else {
+      _asset = "images/lamp_off.png";
+    }
+  }
+
+  turnRed() {
+    if (_lampRed == false && _lampTurn == false) {
+      _asset = "images/lamp_off.png";
+    }
+
+    if (_lampRed == true && _lampTurn == true) {
+      _asset = "images/lamp_red.png";
+    }
+
+    if (_lampTurn == true && _lampRed == false) {
+      _asset = "images/lamp_on.png";
+    }
+
+    if (_lampRed == true && _lampTurn == false) {
       _asset = "images/lamp_off.png";
     }
   }
